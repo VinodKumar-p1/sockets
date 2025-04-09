@@ -105,6 +105,39 @@ int main() {
 
                 break;
 
+	    case PATHTEAR_MSG_TYPE:
+		//get ip from the received path tear msg
+                get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
+                reached = dst_reached(sender_ip);
+ 
+/*                printf("insert_path_session\n");
+                if(path_head == NULL) {
+                    path_head = insert_session(path_head, tunnel_id, sender_ip, receiver_ip,reached);
+                } else {
+                    insert_session(path_head, tunnel_id, sender_ip, receiver_ip, reached);
+                }*/
+
+
+		receive_pathtear_message(sock,buffer,sender_addr);
+		break;
+
+	    case RESVTEAR_MSG_TYPE:
+		
+                //get ip from the received resvtear msg
+                printf(" in resvtear msg type\n");
+                get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
+                reached = dst_reached(sender_ip);
+
+/*                printf("insert_resv_session\n");
+                if(resv_head == NULL) {
+                    resv_head = insert_session(resv_head, tunnel_id, sender_ip, receiver_ip, reached);
+                } else {
+                    insert_session(resv_head, tunnel_id, sender_ip, receiver_ip, reached);
+                }*/
+
+		receive_resvtear_message(sock,buffer,sender_addr);
+		break;
+
         }
     }
     close(sock);

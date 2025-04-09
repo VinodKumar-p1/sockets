@@ -1,5 +1,7 @@
 #define PATH_MSG_TYPE               1   // RSVP-TE PATH Message Type
 #define RESV_MSG_TYPE               2   // RSVP-TE RESV Message Type
+#define PATHTEAR_MSG_TYPE           5   // RSVP-TE PATHTEAR Message Type
+#define RESVTEAR_MSG_TYPE           6   // RSVP-TE RESVTEAR Message Type
 
 #define IP_ADDRLEN                  16
 
@@ -146,3 +148,7 @@ void get_path_class_obj(int[]);
 int dst_reached(char []);
 void get_ip(char[], char[], char [], uint16_t *);
 extern int get_nexthop(const char *, const char *);
+void send_pathtear_message(int, uint16_t);
+void send_resvtear_message(int, uint16_t);
+void receive_pathtear_message(int, char[], struct sockaddr_in);
+void receive_resvtear_message(int, char[], struct sockaddr_in);
