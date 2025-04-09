@@ -143,7 +143,8 @@ int main() {
     while(1) {
 	    if (sigint_received == 1) {
 		  //  path->tunnel_id = 1;
-		    send_pathtear_message(sock, 1);
+	       send_pathtear_message(sock, 1);
+               path_tree = delete_node(path_tree, 1, compare_path_del, 1);     
 	    }
         memset(buffer, 0, sizeof(buffer));
         int bytes_received = recvfrom(sock, buffer, sizeof(buffer), 0,
@@ -199,8 +200,8 @@ int main() {
 
 	    case PATHTEAR_MSG_TYPE:
 		//get ip from the received path tear msg
-                get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
-                reached = dst_reached(sender_ip);
+         //       get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
+           //     reached = dst_reached(sender_ip);
  
 /*                printf("insert_path_session\n");
                 if(path_head == NULL) {
@@ -209,16 +210,15 @@ int main() {
                     insert_session(path_head, tunnel_id, sender_ip, receiver_ip, reached);
                 }*/
 
-
 		receive_pathtear_message(sock,buffer,sender_addr);
 		break;
 
 	    case RESVTEAR_MSG_TYPE:
 		
                 //get ip from the received resvtear msg
-                printf(" in resvtear msg type\n");
-                get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
-                reached = dst_reached(sender_ip);
+             //   printf(" in resvtear msg type\n");
+             //   get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
+             //   reached = dst_reached(sender_ip);
 
 /*                printf("insert_resv_session\n");
                 if(resv_head == NULL) {

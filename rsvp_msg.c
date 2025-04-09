@@ -442,6 +442,7 @@ void receive_pathtear_message(int sock, char buffer[], struct sockaddr_in sender
 	        path_node = search_node(path_tree, session_obj->tunnel_id, compare_path_del);
 	}*/
     printf("Path state is NULL for this node...\n");
+    return;
     }
     //display_tree(path_tree, 1);
 
@@ -457,14 +458,14 @@ void receive_pathtear_message(int sock, char buffer[], struct sockaddr_in sender
 
 	        db_node *resv_node = search_node(resv_tree, session_obj->tunnel_id, compare_resv_del);
        		if(resv_node != NULL){
-            		free_tree(resv_node);
+        	send_resvtear_message(sock, session_obj->tunnel_id);
+                resv_tree = delete_node(resv_tree, 1, compare_resv_del, 0);
         	}
         	display_tree(resv_tree, 0);
-
-        	send_resvtear_message(sock, session_obj->tunnel_id);
     	} else {
-        	printf("send path msg to nexthop \n");
+        	printf("send pathtear msg to nexthop \n");
         	send_pathtear_message(sock, session_obj->tunnel_id);
+                path_tree = delete_node(path_tree, 1, compare_path_del, 1);
 	}
     }
 }
@@ -589,9 +590,11 @@ void receive_resvtear_message(int sock, char buffer[], struct sockaddr_in sender
     	resv_msg *p = (resv_msg*)resv_node->data;
     	if(strcmp(inet_ntoa(p->nexthop_ip),"0.0.0.0") == 0) {
        	    printf("****reached the source, end oF rsvp tunnel***\n");
+                resv_tree = delete_node(resv_tree, 1, compare_resv_del, 0);
     	} else {
             printf("send resv msg to nexthop \n");
             send_resvtear_message(sock, session_obj->tunnel_id); 
+                resv_tree = delete_node(resv_tree, 1, compare_resv_del, 0);
     	}
     }
 }

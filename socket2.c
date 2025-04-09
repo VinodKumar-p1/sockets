@@ -107,8 +107,8 @@ int main() {
 
 	    case PATHTEAR_MSG_TYPE:
 		//get ip from the received path tear msg
-                get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
-                reached = dst_reached(sender_ip);
+                //get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
+                //reached = dst_reached(sender_ip);
  
 /*                printf("insert_path_session\n");
                 if(path_head == NULL) {
@@ -124,9 +124,9 @@ int main() {
 	    case RESVTEAR_MSG_TYPE:
 		
                 //get ip from the received resvtear msg
-                printf(" in resvtear msg type\n");
-                get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
-                reached = dst_reached(sender_ip);
+//                printf(" in resvtear msg type\n");
+  //              get_ip(buffer, sender_ip, receiver_ip, &tunnel_id);
+    //            reached = dst_reached(sender_ip);
 
 /*                printf("insert_resv_session\n");
                 if(resv_head == NULL) {
